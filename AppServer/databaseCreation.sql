@@ -12,55 +12,46 @@ Go
 
 --טבלת שחקנים--
 CREATE TABLE Players (
-    PlayerId INT PRIMARY KEY,      --מפתח ראשי--
-    Email NVARCHAR(100),           --אימייל--
-    [Password] NVARCHAR(100),      --סיסמה--
-    DisplayName NVARCHAR(100),     --שם מוצג--
+    PlayerId INT IDENTITY(1,1) PRIMARY KEY, --מפתח ראשי--
+    Email NVARCHAR(100), --אימייל--
+    [Password] NVARCHAR(100), --סיסמה--
+    DisplayName NVARCHAR(100), --שם מוצג--
     ProfilePicture VARBINARY(MAX), --תמונת פרופיל--
-    IsAdmin BOOL                   --האם מנהל--
+    IsAdmin BIT --האם מנהל--
+);
+
+--טבלת סטטוסים--
+CREATE TABLE Statuses (
+    StatusId INT IDENTITY(1,1) PRIMARY KEY, --קוד סטטוס--
+    StatusName NVARCHAR(100) --שם סטטוס--
+);
+
+--טבלת דרגות קושי--
+CREATE TABLE Difficulties (
+    DifficultyId INT IDENTITY(1,1) PRIMARY KEY, --קוד דרגת קושי--
+    DifficultyName NVARCHAR(100) --שם דרגת קושי--
 );
 
 --טבלת שלבים--
 CREATE TABLE Levels (
-    LevelId INT PRIMARY KEY,
-    Title NVARCHAR(100),
-    FOREIGN KEY (CreatorId) REFERENCES Players(PlayerId)
-
--- יצירת טבלת תלמידים
-CREATE TABLE Students (
-    StudentId INT PRIMARY KEY,        -- מפתח ראשי
-    FullName NVARCHAR(100),           -- שם מלא של התלמיד
-    DateOfBirth DATE                  -- תאריך לידה של התלמיד
+    LevelId INT IDENTITY(1,1) PRIMARY KEY, --קוד שלב--
+    Title NVARCHAR(100), --שם שלב--
+    Layout NVARCHAR(2000), --מבנה שלב--
+    CreatorId INT, --קוד שחקן יוצר--
+    StatusId INT, --קוד ססטוס--
+    DifficultyId INT, --קוד דרגת קושי--
+    FOREIGN KEY (CreatorId) REFERENCES Players(PlayerId), --קישור לטבלת שחקנים--
+    FOREIGN KEY (StatusId) REFERENCES Statuses(StatusId), --קישור לטבלת סטטוסים--
+    FOREIGN KEY (DifficultyId) REFERENCES Difficulties(DifficultyId), --קישור לטבלת דרגות קושי--
+    Preview VARBINARY(MAX) --תצוגת שלב--
 );
 
--- יצירת טבלת מורים
-CREATE TABLE Teachers (
-    TeacherId INT PRIMARY KEY,        -- מפתח ראשי
-    TeacherName NVARCHAR(100)         -- שם מלא של המורה
-);
-
--- יצירת טבלת מקצועות לימוד
-CREATE TABLE Subjects (
-    SubjectId INT PRIMARY KEY,        -- מפתח ראשי
-    SubjectName NVARCHAR(100),        -- שם המקצוע
-    TeacherId INT,                    -- מפתח זר לטבלת מורים
-    FOREIGN KEY (TeacherId) REFERENCES Teachers(TeacherId)   -- קישור לטבלת המורים
-);
-
--- יצירת טבלת חדרי לימוד
-CREATE TABLE Classrooms (
-    ClassroomId INT PRIMARY KEY,      -- מפתח ראשי
-    ClassroomName NVARCHAR(100),      -- שם חדר הלימוד
-    Capacity INT                      -- כמות מקומות בחדר
-);
-
--- יצירת טבלת רישום
-CREATE TABLE Enrollments (
-    EnrollmentId INT PRIMARY KEY,     -- מפתח ראשי
-    StudentId INT,                    -- מפתח זר לטבלת תלמידים
-    SubjectId INT,                    -- מפתח זר לטבלת מקצועות לימוד
-    EnrollmentDate DATE,              -- תאריך הרישום
-    Grade DECIMAL(5, 2),              -- ציון
-    FOREIGN KEY (StudentId) REFERENCES Students(StudentId),   -- קישור לטבלת התלמידים
-    FOREIGN KEY (SubjectId) REFERENCES Subjects(SubjectId)    -- קישור לטבלת המקצועות
+--טבלת תוצאות--
+CREATE TABLE Scores (
+    PlayerId INT, --קוד שחקן--
+    LevelId INT, --קוד שלב--
+    FOREIGN KEY (PlayerId) REFERENCES Players(PlayerId), --קישור לטבלת שחקנים--
+    FOREIGN KEY (LevelId) REFERENCES Levels(LevelId), --קישור לטבלת שלבים--
+    CONSTRAINT PK_Scores PRIMARY KEY (PlayerId,LevelId), --קישור מפתחות זרים--
+    [Time] NVARCHAR(20) --זמן לסיום שלב--
 );
