@@ -22,19 +22,19 @@ CREATE TABLE Players (
 
 --טבלת סטטוסים--
 CREATE TABLE Statuses (
-    StatusId INT IDENTITY(1,1) PRIMARY KEY, --קוד סטטוס--
+    StatusId INT IDENTITY(1,1) PRIMARY KEY, --מפתח ראשי--
     StatusName NVARCHAR(100) --שם סטטוס--
 );
 
 --טבלת דרגות קושי--
 CREATE TABLE Difficulties (
-    DifficultyId INT IDENTITY(1,1) PRIMARY KEY, --קוד דרגת קושי--
+    DifficultyId INT IDENTITY(1,1) PRIMARY KEY, --מפתח ראשי--
     DifficultyName NVARCHAR(100) --שם דרגת קושי--
 );
 
 --טבלת שלבים--
 CREATE TABLE Levels (
-    LevelId INT IDENTITY(1,1) PRIMARY KEY, --קוד שלב--
+    LevelId INT IDENTITY(1,1) PRIMARY KEY, --מפתח ראשי--
     Title NVARCHAR(100), --שם שלב--
     Layout NVARCHAR(2000), --מבנה שלב--
     CreatorId INT, --קוד שחקן יוצר--
