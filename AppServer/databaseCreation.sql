@@ -55,3 +55,20 @@ CREATE TABLE Scores (
     CONSTRAINT PK_Scores PRIMARY KEY (PlayerId,LevelId), --קישור מפתחות זרים--
     [Time] NVARCHAR(20) --זמן לסיום שלב--
 );
+
+-- Create a login for the admin user
+CREATE LOGIN [AdminLogin] WITH PASSWORD = '1234';
+Go
+
+-- Create a user in the TamiDB database for the login
+CREATE USER [AdminUser] FOR LOGIN [AdminLogin];
+Go
+
+-- Add the user to the db_owner role to grant admin privileges
+ALTER ROLE db_owner ADD MEMBER [AdminUser];
+Go
+
+--EF Code
+/*
+scaffold-DbContext "Server = (localdb)\MSSQLLocalDB;Initial Catalog=AppServer_DB;User ID=AdminLogin;Password=1234;" Microsoft.EntityFrameworkCore.SqlServer -OutPutDir Models -Context DBContext -DataAnnotations -force
+*/
