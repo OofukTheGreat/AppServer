@@ -18,5 +18,34 @@ namespace AppServer.Controllers
             this.context = context;
             this.webHostEnvironment = env;
         }
+        [HttpPost("Sign Up")]
+        public IActionResult Register([FromBody] DTO.UserDTO userDto)
+        {
+            try
+            {
+                HttpContext.Session.Clear(); //Logout any previous login attempt
+
+                //Get model user class from DB with matching email. 
+                Models.Player modelsUser = new Player()
+                {
+                    Email = userDto.Email,
+                    Password = userDto.Password,
+                    DisplayName = userDto.DisplayName
+                };
+
+                context.Players.Add(modelsUser);
+                context.SaveChanges();
+
+                //User was added!
+                DTO.UserDTO dtoUser = new DTO.UserDTO(modelsUser);
+                //dtoUser.ProfileImagePath = GetProfileImageVirtualPath(dtoUser.Id);0
+                return Ok(dtoUser);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
     }
 }
