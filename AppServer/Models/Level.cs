@@ -17,11 +17,11 @@ public partial class Level
     [StringLength(2000)]
     public string? Layout { get; set; }
 
-    public int? CreatorId { get; set; }
+    public int CreatorId { get; set; }
 
-    public int? StatusId { get; set; }
+    public int StatusId { get; set; }
 
-    public int? DifficultyId { get; set; }
+    public int DifficultyId { get; set; }
 
     public byte[]? Preview { get; set; }
 
