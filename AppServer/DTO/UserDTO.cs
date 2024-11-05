@@ -6,11 +6,11 @@
         public string Password { get; set; }
         public string DisplayName { get; set; }
         public UserDTO() { }
-        public UserDTO(Models.Player modelPlayer)
+        public UserDTO(string email, string password, string displayname)
         {
-            this.Email = modelPlayer.Email;
-            this.Password = modelPlayer.Password;
-            this.DisplayName = modelPlayer.DisplayName;
+            this.Email = email;
+            this.Password = password;
+            this.DisplayName = displayname;
         }
     }
 }

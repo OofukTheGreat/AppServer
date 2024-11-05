@@ -6,11 +6,11 @@
         public string Layout { get; set; }
         public int DifficultyId { get; set; }
         public CreatedLevelsDTO() { }
-        public CreatedLevelsDTO(Models.Level modelLevel)
+        public CreatedLevelsDTO(string title, string layout, int difficultyid)
         {
-            this.Title = modelLevel.Title;
-            this.Layout = modelLevel.Layout;
-            this.DifficultyId = modelLevel.DifficultyId;
+            this.Title = title;
+            this.Layout = layout;
+            this.DifficultyId = difficultyid;
         }
     }
 }
