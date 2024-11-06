@@ -3,6 +3,5 @@
     public class DBContext
     {
         public DBContext() { }
-        public 
     }
 }

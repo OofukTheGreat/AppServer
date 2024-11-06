@@ -37,7 +37,7 @@ namespace AppServer.Controllers
                 context.SaveChanges();
 
                 //User was added!
-                DTO.UserDTO dtoUser = new DTO.UserDTO(modelsUser);
+                DTO.UserDTO dtoUser = new DTO.UserDTO(modelsUser.Email, modelsUser.Password, modelsUser.DisplayName);
                 //dtoUser.ProfileImagePath = GetProfileImageVirtualPath(dtoUser.Id);0
                 return Ok(dtoUser);
             }
