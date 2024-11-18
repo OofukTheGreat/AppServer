@@ -68,6 +68,8 @@ Go
 ALTER ROLE db_owner ADD MEMBER [AdminUser];
 Go
 
+INSERT INTO Players (Email,[Password],DisplayName,IsAdmin) VALUES ('ofekrom1@gmail.com','1234','Admin',1)
+
 --EF Code
 /*
 scaffold-DbContext "Server = (localdb)\MSSQLLocalDB;Initial Catalog=AppServer_DB;User ID=AdminLogin;Password=1234;" Microsoft.EntityFrameworkCore.SqlServer -OutPutDir Models -Context DBContext -DataAnnotations -force

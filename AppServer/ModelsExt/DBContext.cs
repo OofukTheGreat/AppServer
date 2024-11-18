@@ -1,7 +1,14 @@
-﻿namespace AppServer.ModelsExt
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
+using Microsoft.EntityFrameworkCore;
+namespace AppServer.Models
 {
-    public class DBContext
+    public partial class DBContext : DbContext
     {
-        public DBContext() { }
+        public Player? GetUser(string Email)
+        {
+            return this.Players.Where(u => u.Email == Email).FirstOrDefault();
+        }
     }
 }
