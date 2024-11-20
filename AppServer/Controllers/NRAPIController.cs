@@ -5,7 +5,7 @@ using AppServer.DTO;
 
 namespace AppServer.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/")]
     [ApiController]
     public class NRAPIController : ControllerBase
     {
