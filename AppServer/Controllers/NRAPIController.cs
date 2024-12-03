@@ -64,7 +64,7 @@ namespace AppServer.Controllers
 
         }
 
-        [HttpPost("Sign Up")]
+        [HttpPost("SignUp")]
         public IActionResult Register([FromBody] DTO.PlayerDTO userDto)
         {
             try
