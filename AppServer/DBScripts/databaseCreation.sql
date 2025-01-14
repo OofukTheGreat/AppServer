@@ -16,7 +16,7 @@ CREATE TABLE Players (
     Email NVARCHAR(100), --אימייל--
     [Password] NVARCHAR(100), --סיסמה--
     DisplayName NVARCHAR(100), --שם מוצג--
-    ProfilePicture VARBINARY(MAX), --תמונת פרופיל--
+    ProfilePicture nvarchar(100), --תמונת פרופיל--
     IsAdmin BIT --האם מנהל--
 );
 

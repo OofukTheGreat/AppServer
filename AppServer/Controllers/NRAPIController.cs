@@ -53,7 +53,7 @@ namespace AppServer.Controllers
                 //Login suceed! now mark login in session memory!
                 HttpContext.Session.SetString("loggedInUser", modelsUser.Email);
 
-                DTO.PlayerDTO dtoUser = new DTO.PlayerDTO(modelsUser.Email,modelsUser.Password,modelsUser.DisplayName);
+                DTO.PlayerDTO dtoUser = new DTO.PlayerDTO(modelsUser);
                 //dtoUser.ProfileImagePath = GetProfileImageVirtualPath(dtoUser.Id);
                 return Ok(dtoUser);
             }
@@ -65,27 +65,22 @@ namespace AppServer.Controllers
         }
 
         [HttpPost("SignUp")]
-        public IActionResult Register([FromBody] DTO.PlayerDTO userDto)
+        public IActionResult Register([FromBody] DTO.PlayerDTO playerDto)
         {
             try
             {
                 HttpContext.Session.Clear(); //Logout any previous login attempt
 
                 //Get model user class from DB with matching email. 
-                Models.Player modelsUser = new Player()
-                {
-                    Email = userDto.Email,
-                    Password = userDto.Password,
-                    DisplayName = userDto.DisplayName
-                };
+                Models.Player modelsPlayer = playerDto.GetModels();
 
-                context.Players.Add(modelsUser);
+                context.Players.Add(modelsPlayer);
                 context.SaveChanges();
 
                 //User was added!
-                DTO.PlayerDTO dtoUser = new DTO.PlayerDTO(modelsUser.Email, modelsUser.Password, modelsUser.DisplayName);
-                //dtoUser.ProfileImagePath = GetProfileImageVirtualPath(dtoUser.Id);0
-                return Ok(dtoUser);
+                DTO.PlayerDTO dtoPlayer = new DTO.PlayerDTO(modelsPlayer);
+                dtoPlayer.ProfilePicture = GetProfileImageVirtualPath(dtoPlayer.PlayerId);
+                return Ok(dtoPlayer);
             }
             catch (Exception ex)
             {
@@ -93,5 +88,81 @@ namespace AppServer.Controllers
             }
 
         }
+        //this function check which profile image exist and return the virtual path of it.
+        //if it does not exist it returns the default profile image virtual path
+        private string GetProfileImageVirtualPath(int userId)
+        {
+            string virtualPath = $"/profileImages/{userId}";
+            string path = $"{this.webHostEnvironment.WebRootPath}\\profileImages\\{userId}.png";
+            if (System.IO.File.Exists(path))
+            {
+                virtualPath += ".png";
+            }
+            else
+            {
+                path = $"{this.webHostEnvironment.WebRootPath}\\profileImages\\{userId}.jpg";
+                if (System.IO.File.Exists(path))
+                {
+                    virtualPath += ".jpg";
+                }
+                else
+                {
+                    virtualPath = $"/profileImages/default.png";
+                }
+            }
+
+            return virtualPath;
+        }
+
+
+        //THis function gets a userId and a profile image file and save the image in the server
+        //The function return the full path of the file saved
+        private async Task<string> SaveProfileImageAsync(int userId, IFormFile file)
+        {
+            //Read all files sent
+            long imagesSize = 0;
+
+            if (file.Length > 0)
+            {
+                //Check the file extention!
+                string[] allowedExtentions = { ".png", ".jpg" };
+                string extention = "";
+                if (file.FileName.LastIndexOf(".") > 0)
+                {
+                    extention = file.FileName.Substring(file.FileName.LastIndexOf(".")).ToLower();
+                }
+                if (!allowedExtentions.Where(e => e == extention).Any())
+                {
+                    //Extention is not supported
+                    throw new Exception("File sent with non supported extention");
+                }
+
+                //Build path in the web root (better to a specific folder under the web root
+                string filePath = $"{this.webHostEnvironment.WebRootPath}\\profileImages\\{userId}{extention}";
+
+                using (var stream = System.IO.File.Create(filePath))
+                {
+                    await file.CopyToAsync(stream);
+
+                    if (IsImage(stream))
+                    {
+                        imagesSize += stream.Length;
+                    }
+                    else
+                    {
+                        //Delete the file if it is not supported!
+                        System.IO.File.Delete(filePath);
+                        throw new Exception("File sent is not an image");
+                    }
+
+                }
+
+                return filePath;
+
+            }
+
+            throw new Exception("File in size 0");
+        }
     }
+
 }

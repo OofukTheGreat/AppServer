@@ -20,7 +20,8 @@ public partial class Player
     [StringLength(100)]
     public string? DisplayName { get; set; }
 
-    public byte[]? ProfilePicture { get; set; }
+    [StringLength(100)]
+    public string? ProfilePicture { get; set; }
 
     public bool? IsAdmin { get; set; }
 

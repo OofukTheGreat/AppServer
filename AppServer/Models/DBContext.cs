@@ -33,12 +33,12 @@ public partial class DBContext : DbContext
     {
         modelBuilder.Entity<Difficulty>(entity =>
         {
-            entity.HasKey(e => e.DifficultyId).HasName("PK__Difficul__161A326725DEF566");
+            entity.HasKey(e => e.DifficultyId).HasName("PK__Difficul__161A32671766484C");
         });
 
         modelBuilder.Entity<Level>(entity =>
         {
-            entity.HasKey(e => e.LevelId).HasName("PK__Levels__09F03C26314E325D");
+            entity.HasKey(e => e.LevelId).HasName("PK__Levels__09F03C26217E5663");
 
             entity.HasOne(d => d.Creator).WithMany(p => p.Levels).HasConstraintName("FK__Levels__CreatorI__2A4B4B5E");
 
@@ -49,7 +49,7 @@ public partial class DBContext : DbContext
 
         modelBuilder.Entity<Player>(entity =>
         {
-            entity.HasKey(e => e.PlayerId).HasName("PK__Players__4A4E74C8EE7B55BE");
+            entity.HasKey(e => e.PlayerId).HasName("PK__Players__4A4E74C8D98F86F1");
         });
 
         modelBuilder.Entity<Score>(entity =>
@@ -65,7 +65,7 @@ public partial class DBContext : DbContext
 
         modelBuilder.Entity<Status>(entity =>
         {
-            entity.HasKey(e => e.StatusId).HasName("PK__Statuses__C8EE2063CCAA307F");
+            entity.HasKey(e => e.StatusId).HasName("PK__Statuses__C8EE2063E93ADB9A");
         });
 
         OnModelCreatingPartial(modelBuilder);
