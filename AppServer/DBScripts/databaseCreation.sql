@@ -15,7 +15,7 @@ CREATE TABLE Players (
     PlayerId INT IDENTITY(1,1) PRIMARY KEY, --מפתח ראשי--
     Email NVARCHAR(100), --אימייל--
     [Password] NVARCHAR(100), --סיסמה--
-    DisplayName NVARCHAR(100), --שם מוצג--
+    DisplayName NVARCHAR(20), --שם מוצג--
     ProfilePicture nvarchar(100), --תמונת פרופיל--
     IsAdmin BIT --האם מנהל--
 );

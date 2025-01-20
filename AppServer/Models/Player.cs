@@ -17,7 +17,7 @@ public partial class Player
     [StringLength(100)]
     public string? Password { get; set; }
 
-    [StringLength(100)]
+    [StringLength(20)]
     public string? DisplayName { get; set; }
 
     [StringLength(100)]
