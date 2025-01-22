@@ -43,7 +43,6 @@ CREATE TABLE Levels (
     FOREIGN KEY (CreatorId) REFERENCES Players(PlayerId), --קישור לטבלת שחקנים--
     FOREIGN KEY (StatusId) REFERENCES Statuses(StatusId), --קישור לטבלת סטטוסים--
     FOREIGN KEY (DifficultyId) REFERENCES Difficulties(DifficultyId), --קישור לטבלת דרגות קושי--
-    Preview VARBINARY(MAX) --תצוגת שלב--
 );
 
 --טבלת תוצאות--
