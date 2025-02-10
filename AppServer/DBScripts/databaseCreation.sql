@@ -68,6 +68,8 @@ ALTER ROLE db_owner ADD MEMBER [AdminUser];
 Go
 
 INSERT INTO Players (Email,[Password],DisplayName,IsAdmin) VALUES ('ofekrom1@gmail.com','1234','Admin',1)
+INSERT INTO Levels (Title, Layout, CreatorId, StatusId, DifficultyId) VALUES ('Cherry', '6,4,.5,2,2,1,.4,1,1,2,2,.3,2,2,1,2,.2,1,4,1,2,.1,3,2,3,1,.0,1,2,3,2,2,.0,1,1,4,1,3,.0,4,1,5,.1,2,3,3,1,.', 1, 1, 10)
+INSERT INTO Levels (Title, Layout, CreatorId, StatusId, DifficultyId) VALUES ('Heart', '1,1,1,1,1,.0,5,.0,5,.1,3,1,.2,1,2,.', 1, 1, 10)
 
 --EF Code
 /*
