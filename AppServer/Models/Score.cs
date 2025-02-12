@@ -15,11 +15,12 @@ public partial class Score
     [Key]
     public int LevelId { get; set; }
 
-    [StringLength(20)]
-    public string? Time { get; set; }
+    public int Time { get; set; }
 
     [StringLength(2000)]
     public string? CurrentProgress { get; set; }
+
+    public bool HasWon { get; set; }
 
     [ForeignKey("LevelId")]
     [InverseProperty("Scores")]

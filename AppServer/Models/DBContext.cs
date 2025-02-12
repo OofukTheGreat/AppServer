@@ -31,7 +31,7 @@ public partial class DBContext : DbContext
     {
         modelBuilder.Entity<Level>(entity =>
         {
-            entity.HasKey(e => e.LevelId).HasName("PK__Levels__09F03C268DFC0A02");
+            entity.HasKey(e => e.LevelId).HasName("PK__Levels__09F03C26D71D6CB6");
 
             entity.HasOne(d => d.Creator).WithMany(p => p.Levels).HasConstraintName("FK__Levels__CreatorI__286302EC");
 
@@ -40,7 +40,7 @@ public partial class DBContext : DbContext
 
         modelBuilder.Entity<Player>(entity =>
         {
-            entity.HasKey(e => e.PlayerId).HasName("PK__Players__4A4E74C863623DA4");
+            entity.HasKey(e => e.PlayerId).HasName("PK__Players__4A4E74C8B8B83D6B");
         });
 
         modelBuilder.Entity<Score>(entity =>
@@ -56,7 +56,7 @@ public partial class DBContext : DbContext
 
         modelBuilder.Entity<Status>(entity =>
         {
-            entity.HasKey(e => e.StatusId).HasName("PK__Statuses__C8EE2063C917246C");
+            entity.HasKey(e => e.StatusId).HasName("PK__Statuses__C8EE206340DC2B3D");
         });
 
         OnModelCreatingPartial(modelBuilder);

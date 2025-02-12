@@ -64,7 +64,7 @@ namespace AppServer.Controllers
 
         }
 
-        [HttpPost("SignUp")]
+        [HttpPost("signUp")]
         public IActionResult Register([FromBody] DTO.PlayerDTO playerDto)
         {
             try
@@ -188,6 +188,29 @@ namespace AppServer.Controllers
             }
 
             return false;
+        }
+        [HttpPost("addScore")]
+        public IActionResult AddScore([FromBody] DTO.ScoreDTO scoreDTO)
+        {
+            try
+            {
+                HttpContext.Session.Clear(); //Logout any previous login attempt
+
+                //Create model user class
+                Models.Score modelsScore = scoreDTO.GetModels();
+
+                context.Scores.Add(modelsScore);
+                context.SaveChanges();
+
+                //User was added!
+                DTO.ScoreDTO dtoUser = new DTO.ScoreDTO(modelsScore);
+                return Ok(dtoUser);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
     }
 

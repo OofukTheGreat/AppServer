@@ -7,14 +7,14 @@
         public string Layout { get; set; }
         public int CreatorId { get; set; }
         public int StatusId { get; set; }
-        public int DifficultyId { get; set; }
+        public int Size { get; set; }
         public LevelDTO() { }
-        public LevelDTO(int levelId, string title, string layout, int difficultyId, int creatorId, int statusId)
+        public LevelDTO(int levelId, string title, string layout, int size, int creatorId, int statusId)
         {
             this.LevelId = levelId;
             this.Title = title;
             this.Layout = layout;
-            this.DifficultyId = difficultyId;
+            this.Size = size;
             this.CreatorId = creatorId;
             this.StatusId = statusId;
         }
@@ -27,7 +27,7 @@
                 Layout = this.Layout,
                 CreatorId = this.CreatorId,
                 StatusId = this.StatusId,
-                DifficultyId = this.DifficultyId
+                Size = this.Size
             };
             return modelLevel;
         }

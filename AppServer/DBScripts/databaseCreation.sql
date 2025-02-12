@@ -42,11 +42,12 @@ CREATE TABLE Levels (
 CREATE TABLE Scores (
     PlayerId INT, --קוד שחקן--
     LevelId INT, --קוד שלב--
+    [Time] INT, --זמן לסיום שלב--
+    CurrentProgress NVARCHAR(2000), --מבנה התקדמות נוכחית של שחקן--
+    HasWon BIT,
     FOREIGN KEY (PlayerId) REFERENCES Players(PlayerId), --קישור לטבלת שחקנים--
     FOREIGN KEY (LevelId) REFERENCES Levels(LevelId), --קישור לטבלת שלבים--
     CONSTRAINT PK_Scores PRIMARY KEY (PlayerId,LevelId), --קישור מפתחות זרים--
-    [Time] NVARCHAR(20), --זמן לסיום שלב--
-    CurrentProgress NVARCHAR(2000) --מבנה התקדמות נוכחית של שחקן--
 );
 
 -- Create a login for the admin user
@@ -61,9 +62,13 @@ Go
 ALTER ROLE db_owner ADD MEMBER [AdminUser];
 Go
 
+INSERT INTO Statuses VALUES ('Pending')
+INSERT INTO Statuses VALUES ('Approved')
+INSERT INTO Statuses VALUES ('Denied')
 INSERT INTO Players (Email,[Password],DisplayName,IsAdmin) VALUES ('ofekrom1@gmail.com','1234','Admin',1)
 INSERT INTO Levels (Title, Layout, CreatorId, StatusId, Size) VALUES ('Cherry', '6,4,.5,2,2,1,.4,1,1,2,2,.3,2,2,1,2,.2,1,4,1,2,.1,3,2,3,1,.0,1,2,3,2,2,.0,1,1,4,1,3,.0,4,1,5,.1,2,3,3,1,.', 1, 1, 10)
 INSERT INTO Levels (Title, Layout, CreatorId, StatusId, Size) VALUES ('Heart', '1,1,1,1,1,.0,5,.0,5,.1,3,1,.2,1,2,.', 1, 1, 10)
+
 
 --EF Code
 /*
@@ -71,3 +76,5 @@ scaffold-DbContext "Server = (localdb)\MSSQLLocalDB;Initial Catalog=AppServer_DB
 */
 
 SELECT * FROM Players
+SELECT * FROM Scores
+select * from Levels
