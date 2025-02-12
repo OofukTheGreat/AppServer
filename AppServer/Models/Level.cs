@@ -21,17 +21,11 @@ public partial class Level
 
     public int? StatusId { get; set; }
 
-    public int? DifficultyId { get; set; }
-
-    public byte[]? Preview { get; set; }
+    public int? Size { get; set; }
 
     [ForeignKey("CreatorId")]
     [InverseProperty("Levels")]
     public virtual Player? Creator { get; set; }
-
-    [ForeignKey("DifficultyId")]
-    [InverseProperty("Levels")]
-    public virtual Difficulty? Difficulty { get; set; }
 
     [InverseProperty("Level")]
     public virtual ICollection<Score> Scores { get; set; } = new List<Score>();

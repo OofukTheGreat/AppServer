@@ -14,7 +14,6 @@ public partial class DBContext : DbContext
         : base(options)
     {
     }
-    public virtual DbSet<Difficulty> Difficulties { get; set; }
 
     public virtual DbSet<Level> Levels { get; set; }
 
@@ -30,41 +29,34 @@ public partial class DBContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Difficulty>(entity =>
-        {
-            entity.HasKey(e => e.DifficultyId).HasName("PK__Difficul__161A3267F2BF8874");
-        });
-
         modelBuilder.Entity<Level>(entity =>
         {
-            entity.HasKey(e => e.LevelId).HasName("PK__Levels__09F03C26739D9270");
+            entity.HasKey(e => e.LevelId).HasName("PK__Levels__09F03C268DFC0A02");
 
-            entity.HasOne(d => d.Creator).WithMany(p => p.Levels).HasConstraintName("FK__Levels__CreatorI__2A4B4B5E");
+            entity.HasOne(d => d.Creator).WithMany(p => p.Levels).HasConstraintName("FK__Levels__CreatorI__286302EC");
 
-            entity.HasOne(d => d.Difficulty).WithMany(p => p.Levels).HasConstraintName("FK__Levels__Difficul__2C3393D0");
-
-            entity.HasOne(d => d.Status).WithMany(p => p.Levels).HasConstraintName("FK__Levels__StatusId__2B3F6F97");
+            entity.HasOne(d => d.Status).WithMany(p => p.Levels).HasConstraintName("FK__Levels__StatusId__29572725");
         });
 
         modelBuilder.Entity<Player>(entity =>
         {
-            entity.HasKey(e => e.PlayerId).HasName("PK__Players__4A4E74C89B16E3B2");
+            entity.HasKey(e => e.PlayerId).HasName("PK__Players__4A4E74C863623DA4");
         });
 
         modelBuilder.Entity<Score>(entity =>
         {
             entity.HasOne(d => d.Level).WithMany(p => p.Scores)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Scores__LevelId__300424B4");
+                .HasConstraintName("FK__Scores__LevelId__2D27B809");
 
             entity.HasOne(d => d.Player).WithMany(p => p.Scores)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Scores__PlayerId__2F10007B");
+                .HasConstraintName("FK__Scores__PlayerId__2C3393D0");
         });
 
         modelBuilder.Entity<Status>(entity =>
         {
-            entity.HasKey(e => e.StatusId).HasName("PK__Statuses__C8EE206355BC21A2");
+            entity.HasKey(e => e.StatusId).HasName("PK__Statuses__C8EE2063C917246C");
         });
 
         OnModelCreatingPartial(modelBuilder);

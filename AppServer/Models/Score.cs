@@ -18,6 +18,9 @@ public partial class Score
     [StringLength(20)]
     public string? Time { get; set; }
 
+    [StringLength(2000)]
+    public string? CurrentProgress { get; set; }
+
     [ForeignKey("LevelId")]
     [InverseProperty("Scores")]
     public virtual Level Level { get; set; } = null!;
