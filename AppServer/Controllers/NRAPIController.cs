@@ -212,6 +212,44 @@ namespace AppServer.Controllers
             }
 
         }
+        [HttpPost("getScores")]
+        public IActionResult GetScores(int levelid)
+        {
+            try
+            {
+                List<Models.Score> scores = context.GetScores(levelid);
+                List<DTO.ScoreDTO> Scores = new List<ScoreDTO>();
+                foreach (Models.Score s in scores)
+                {
+                    Scores.Add(new DTO.ScoreDTO(s));
+                }
+                return Ok(Scores);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+        [HttpPost("getPlayers")]
+        public IActionResult GetPlayers(int levelid)
+        {
+            try
+            {
+                List<Models.Player> players = context.GetPlayers();
+                List<DTO.PlayerDTO> Players = new List<PlayerDTO>();
+                foreach (Models.Player p in players)
+                {
+                    Players.Add(new DTO.PlayerDTO(p));
+                }
+                return Ok(Players);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
     }
 
 }
