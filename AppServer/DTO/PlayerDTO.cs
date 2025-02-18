@@ -4,7 +4,7 @@ namespace AppServer.DTO
 {
     public class PlayerDTO
     {
-        public int PlayerId { get; set; }
+        public int Id { get; set; }
 
         public string? Email { get; set; }
 
@@ -18,7 +18,7 @@ namespace AppServer.DTO
         public PlayerDTO() { }
         public PlayerDTO(Models.Player modelPlayer)
         {
-            this.PlayerId = modelPlayer.PlayerId;
+            this.Id = modelPlayer.PlayerId;
             this.Email = modelPlayer.Email;
             this.Password = modelPlayer.Password;
             this.DisplayName = modelPlayer.DisplayName;
@@ -30,7 +30,7 @@ namespace AppServer.DTO
         {
             Models.Player modelPlayer = new Models.Player()
             {
-                PlayerId = this.PlayerId,
+                PlayerId = this.Id,
                 Email = this.Email,
                 Password = this.Password,
                 DisplayName = this.DisplayName,

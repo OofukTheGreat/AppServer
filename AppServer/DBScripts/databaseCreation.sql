@@ -66,9 +66,11 @@ INSERT INTO Statuses VALUES ('Pending')
 INSERT INTO Statuses VALUES ('Approved')
 INSERT INTO Statuses VALUES ('Denied')
 INSERT INTO Players (Email,[Password],DisplayName,IsAdmin) VALUES ('ofekrom1@gmail.com','1234','Admin',1)
+INSERT INTO Players (Email,[Password],DisplayName,IsAdmin) VALUES ('joe@gmail.com','1234','Joe',0)
 INSERT INTO Levels (Title, Layout, CreatorId, StatusId, Size) VALUES ('Cherry', '6,4,.5,2,2,1,.4,1,1,2,2,.3,2,2,1,2,.2,1,4,1,2,.1,3,2,3,1,.0,1,2,3,2,2,.0,1,1,4,1,3,.0,4,1,5,.1,2,3,3,1,.', 1, 2, 10)
-INSERT INTO Levels (Title, Layout, CreatorId, StatusId, Size) VALUES ('Heart', '1,1,1,1,1,.0,5,.0,5,.1,3,1,.2,1,2,.', 1, 2, 10)
+INSERT INTO Levels (Title, Layout, CreatorId, StatusId, Size) VALUES ('Heart', '1,1,1,1,1,.0,5,.0,5,.1,3,1,.2,1,2,.', 1, 2, 5)
 INSERT INTO Scores (PlayerId, LevelId, [Time], CurrentProgress, HasWon) VALUES (1,1,2,'6,4,.5,2,2,1,.4,1,1,2,2,.3,2,2,1,2,.2,1,4,1,2,.1,3,2,3,1,.0,1,2,3,2,2,.0,1,1,4,1,3,.0,4,1,5,.1,2,3,3,1,.',1)
+INSERT INTO Scores (PlayerId, LevelId, [Time], CurrentProgress, HasWon) VALUES (2,1,200,'6,4,.5,2,2,1,.4,1,1,2,2,.3,2,2,1,2,.2,1,4,1,2,.1,3,2,3,1,.0,1,2,3,2,2,.0,1,1,4,1,3,.0,4,1,5,.1,2,3,3,1,.',1)
 INSERT INTO Scores (PlayerId, LevelId, [Time], CurrentProgress, HasWon) VALUES (1,2,3,'1,1,1,1,1,.0,5,.0,5,.1,3,1,.2,1,2,.',1)
 
 

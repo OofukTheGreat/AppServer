@@ -79,7 +79,7 @@ namespace AppServer.Controllers
 
                 //User was added!
                 DTO.PlayerDTO dtoPlayer = new DTO.PlayerDTO(modelsPlayer);
-                dtoPlayer.ProfilePicture = GetProfileImageVirtualPath(dtoPlayer.PlayerId);
+                dtoPlayer.ProfilePicture = GetProfileImageVirtualPath(dtoPlayer.Id);
                 return Ok(dtoPlayer);
             }
             catch (Exception ex)
@@ -212,12 +212,12 @@ namespace AppServer.Controllers
             }
 
         }
-        [HttpPost("getScores")]
-        public IActionResult GetScores(int levelid)
+        [HttpGet("getScoresByList")]
+        public IActionResult GetScoresByList(int levelid)
         {
             try
             {
-                List<Models.Score> scores = context.GetScores(levelid);
+                List<Models.Score> scores = context.GetScoresByLevel(levelid);
                 List<DTO.ScoreDTO> Scores = new List<ScoreDTO>();
                 foreach (Models.Score s in scores)
                 {
@@ -231,8 +231,8 @@ namespace AppServer.Controllers
             }
 
         }
-        [HttpPost("getPlayers")]
-        public IActionResult GetPlayers(int levelid)
+        [HttpGet("getPlayers")]
+        public IActionResult GetPlayers()
         {
             try
             {

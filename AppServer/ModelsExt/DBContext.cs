@@ -10,7 +10,7 @@ namespace AppServer.Models
         {
             return this.Players.Where(u => u.Email == Email).FirstOrDefault();
         }
-        public List<Score>? GetScores(int levelid)
+        public List<Score>? GetScoresByLevel(int levelid)
         {
             return this.Scores.Where(s => s.HasWon == true && s.LevelId == levelid).ToList();
         }
