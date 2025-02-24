@@ -117,7 +117,8 @@ namespace AppServer.Controllers
 
         //THis function gets a userId and a profile image file and save the image in the server
         //The function return the full path of the file saved
-        private async Task<string> SaveProfileImageAsync(int userId, IFormFile file)
+        [HttpPost("uploadprofileimage")]
+        public async Task<string> SaveProfileImageAsync(IFormFile file, [FromQuery] int userId)
         {
             //Read all files sent
             long imagesSize = 0;
@@ -157,7 +158,7 @@ namespace AppServer.Controllers
 
                 }
 
-                return filePath;
+                return GetProfileImageVirtualPath(userId);
 
             }
 
