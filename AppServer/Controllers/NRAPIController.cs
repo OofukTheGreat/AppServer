@@ -54,7 +54,7 @@ namespace AppServer.Controllers
                 HttpContext.Session.SetString("loggedInUser", modelsUser.Email);
 
                 DTO.PlayerDTO dtoUser = new DTO.PlayerDTO(modelsUser);
-                //dtoUser.ProfileImagePath = GetProfileImageVirtualPath(dtoUser.Id);
+                dtoUser.ProfilePicture = GetProfileImageVirtualPath(dtoUser.Id);
                 return Ok(dtoUser);
             }
             catch (Exception ex)
@@ -158,6 +158,7 @@ namespace AppServer.Controllers
 
                 }
 
+                
                 return GetProfileImageVirtualPath(userId);
 
             }
@@ -241,6 +242,7 @@ namespace AppServer.Controllers
                 List<DTO.PlayerDTO> Players = new List<PlayerDTO>();
                 foreach (Models.Player p in players)
                 {
+                    p.ProfilePicture = GetProfileImageVirtualPath(p.PlayerId);
                     Players.Add(new DTO.PlayerDTO(p));
                 }
                 return Ok(Players);
