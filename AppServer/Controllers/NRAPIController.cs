@@ -195,7 +195,7 @@ namespace AppServer.Controllers
         [HttpPost("addScore")]
         public IActionResult AddScore([FromBody] DTO.ScoreDTO scoreDTO)
         {
-            try
+            try //d
             {
                 HttpContext.Session.Clear(); //Logout any previous login attempt
                 if (scoreDTO.HasWon)
