@@ -197,6 +197,11 @@ namespace AppServer.Controllers
         {
             try //d
             {
+                string? userMail = HttpContext.Session.GetString("loggedInUser");
+                if (string.IsNullOrEmpty(userMail))
+                {
+                    return Unauthorized("User is not logged in >:(");
+                }
                 HttpContext.Session.Clear(); //Logout any previous login attempt
                 if (scoreDTO.HasWon)
                 {
@@ -245,7 +250,7 @@ namespace AppServer.Controllers
         public IActionResult GetScoresByList(int levelid)
         {
             try
-            {
+            { 
                 List<Models.Score> scores = context.GetScoresByLevel(levelid);
                 List<DTO.ScoreDTO> Scores = new List<ScoreDTO>();
                 foreach (Models.Score s in scores)
