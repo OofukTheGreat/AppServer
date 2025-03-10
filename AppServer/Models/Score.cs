@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AppServer.Models;
 
-[PrimaryKey("PlayerId", "LevelId")]
+[PrimaryKey("PlayerId", "LevelId", "HasWon")]
 public partial class Score
 {
     [Key]
@@ -20,6 +20,7 @@ public partial class Score
     [StringLength(2000)]
     public string? CurrentProgress { get; set; }
 
+    [Key]
     public bool HasWon { get; set; }
 
     [ForeignKey("LevelId")]

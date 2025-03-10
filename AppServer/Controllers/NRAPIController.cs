@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using AppServer.Models;
 using AppServer.DTO;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace AppServer.Controllers
 {
@@ -197,16 +198,42 @@ namespace AppServer.Controllers
             try
             {
                 HttpContext.Session.Clear(); //Logout any previous login attempt
-
-                //Create model user class
-                Models.Score modelsScore = scoreDTO.GetModels();
-
-                context.Scores.Add(modelsScore);
-                context.SaveChanges();
-
-                //User was added!
-                DTO.ScoreDTO dtoUser = new DTO.ScoreDTO(modelsScore);
-                return Ok(dtoUser);
+                if (scoreDTO.HasWon)
+                {
+                    Score score = context.Scores.Where(s => s.HasWon == scoreDTO.HasWon && s.PlayerId == scoreDTO.PlayerId && s.LevelId == scoreDTO.LevelId).FirstOrDefault();
+                    Score notWon = context.Scores.Where(s => s.HasWon == false && s.PlayerId == scoreDTO.PlayerId && s.LevelId == scoreDTO.LevelId).FirstOrDefault();
+                    if (notWon != null)
+                    {
+                        context.Scores.Remove(notWon);
+                    }
+                    if (score != null)
+                    {
+                        score.Time = Math.Min(score.Time, scoreDTO.Time);
+                        context.SaveChanges();
+                        return Ok();
+                    }
+                    else
+                    {
+                        Models.Score modelsScore = scoreDTO.GetModels();
+                        context.Scores.Add(modelsScore);
+                        context.SaveChanges();
+                        DTO.ScoreDTO dtoScore = new DTO.ScoreDTO(modelsScore);
+                        return Ok(dtoScore);
+                    }
+                }
+                else
+                {
+                    Score score = context.Scores.Where(s => s.HasWon == scoreDTO.HasWon && s.PlayerId == scoreDTO.PlayerId && s.LevelId == scoreDTO.LevelId).FirstOrDefault();
+                    if (score != null)
+                    {
+                        context.Remove(score);
+                    }
+                    Models.Score modelsScore = scoreDTO.GetModels();
+                    context.Scores.Add(modelsScore);
+                    context.SaveChanges();
+                    DTO.ScoreDTO dtoScore = new DTO.ScoreDTO(modelsScore);
+                    return Ok(dtoScore);
+                }
             }
             catch (Exception ex)
             {

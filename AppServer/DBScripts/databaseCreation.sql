@@ -47,7 +47,7 @@ CREATE TABLE Scores (
     HasWon BIT,
     FOREIGN KEY (PlayerId) REFERENCES Players(PlayerId), --קישור לטבלת שחקנים--
     FOREIGN KEY (LevelId) REFERENCES Levels(LevelId), --קישור לטבלת שלבים--
-    CONSTRAINT PK_Scores PRIMARY KEY (PlayerId,LevelId), --קישור מפתחות זרים--
+    CONSTRAINT PK_Scores PRIMARY KEY (PlayerId,LevelId,HasWon), --קישור מפתחות זרים--
 );
 
 -- Create a login for the admin user
