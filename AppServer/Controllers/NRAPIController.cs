@@ -202,7 +202,6 @@ namespace AppServer.Controllers
                 {
                     return Unauthorized("User is not logged in >:(");
                 }
-                HttpContext.Session.Clear(); //Logout any previous login attempt
                 if (scoreDTO.HasWon)
                 {
                     Score score = context.Scores.Where(s => s.HasWon == scoreDTO.HasWon && s.PlayerId == scoreDTO.PlayerId && s.LevelId == scoreDTO.LevelId).FirstOrDefault();
