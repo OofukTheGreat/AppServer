@@ -284,6 +284,32 @@ namespace AppServer.Controllers
             }
 
         }
+        [HttpPost("addLevel")]
+        public IActionResult AddLevel([FromBody] DTO.LevelDTO levelDto)
+        {
+            try
+            {
+                string? userMail = HttpContext.Session.GetString("loggedInUser");
+                if (string.IsNullOrEmpty(userMail))
+                {
+                    return Unauthorized("User is not logged in >:(");
+                }
+                //Get model user class from DB with matching email. 
+                Models.Level modelsLevel = levelDto.GetModels();
+
+                context.Levels.Add(modelsLevel);
+                context.SaveChanges();
+
+                //User was added!
+                DTO.LevelDTO dtoLevel = new DTO.LevelDTO(modelsLevel);
+                return Ok(dtoLevel);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
     }
 
 }

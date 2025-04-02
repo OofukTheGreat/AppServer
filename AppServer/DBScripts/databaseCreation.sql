@@ -25,6 +25,9 @@ CREATE TABLE Statuses (
     StatusId INT IDENTITY(1,1) PRIMARY KEY, --מפתח ראשי--
     StatusName NVARCHAR(100) --שם סטטוס--
 );
+--1 pending
+--2 approved
+--3 declined
 
 --טבלת שלבים--
 CREATE TABLE Levels (

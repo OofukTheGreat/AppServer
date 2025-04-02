@@ -17,11 +17,11 @@ public partial class Level
     [StringLength(2000)]
     public string? Layout { get; set; }
 
-    public int? CreatorId { get; set; }
+    public int CreatorId { get; set; }
 
-    public int? StatusId { get; set; }
+    public int StatusId { get; set; }
 
-    public int? Size { get; set; }
+    public int Size { get; set; }
 
     [ForeignKey("CreatorId")]
     [InverseProperty("Levels")]
