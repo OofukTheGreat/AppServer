@@ -18,5 +18,9 @@ namespace AppServer.Models
         {
             return this.Players.ToList();
         }
+        public List<Level>? GetLevels()
+        {
+            return this.Levels.ToList();
+        }
     }
 }

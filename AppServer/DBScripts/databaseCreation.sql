@@ -53,7 +53,6 @@ CREATE TABLE Scores (
     CONSTRAINT PK_Scores PRIMARY KEY (PlayerId,LevelId,HasWon), --קישור מפתחות זרים--
 );
 
-drop user AdminUser
 -- Create a login for the admin user
 CREATE LOGIN [AdminLogin] WITH PASSWORD = '1234';
 Go
