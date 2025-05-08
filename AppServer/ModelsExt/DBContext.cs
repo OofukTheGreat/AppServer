@@ -18,9 +18,13 @@ namespace AppServer.Models
         {
             return this.Players.ToList();
         }
-        public List<Level>? GetLevels()
+        public List<Level>? GetApprovedLevels()
         {
-            return this.Levels.ToList();
+            return this.Levels.Where(L => L.StatusId == 2).ToList();
+        }
+        public List<Level>? GetPendingLevels()
+        {
+            return this.Levels.Where(L => L.StatusId == 1).ToList();
         }
     }
 }

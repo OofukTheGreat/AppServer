@@ -284,12 +284,32 @@ namespace AppServer.Controllers
             }
 
         }
-        [HttpGet("GetLevels")]
-        public IActionResult GetLevels()
+        [HttpGet("getApprovedLevels")]
+        public IActionResult GetApprovedLevels()
         {
             try
             {
-                List<Models.Level> modelLevels = context.GetLevels();
+                List<Models.Level> modelLevels = context.GetApprovedLevels();
+                List<DTO.LevelDTO> levelsDto = new List<LevelDTO>();
+                foreach (Models.Level l in modelLevels)
+                {
+                    //p.ProfilePicture = GetProfileImageVirtualPath(p.PlayerId);
+                    levelsDto.Add(new DTO.LevelDTO(l));
+                }
+                return Ok(levelsDto);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+        [HttpGet("getPendingLevels")]
+        public IActionResult GetPendingLevels()
+        {
+            try
+            {
+                List<Models.Level> modelLevels = context.GetPendingLevels();
                 List<DTO.LevelDTO> levelsDto = new List<LevelDTO>();
                 foreach (Models.Level l in modelLevels)
                 {
