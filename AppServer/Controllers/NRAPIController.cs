@@ -246,11 +246,30 @@ namespace AppServer.Controllers
 
         }
         [HttpGet("getScoresByList")]
-        public IActionResult GetScoresByList(int levelid)
+        public IActionResult GetScoresByList([FromQuery] int levelid)
         {
             try
             { 
                 List<Models.Score> scores = context.GetScoresByLevel(levelid);
+                List<DTO.ScoreDTO> Scores = new List<ScoreDTO>();
+                foreach (Models.Score s in scores)
+                {
+                    Scores.Add(new DTO.ScoreDTO(s));
+                }
+                return Ok(Scores);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+        [HttpGet("getScoresByPlayer")]
+        public IActionResult GetScoresByPlayer([FromQuery] int playerid)
+        {
+            try
+            { 
+                List<Models.Score> scores = context.GetScoresByPlayer(playerid);
                 List<DTO.ScoreDTO> Scores = new List<ScoreDTO>();
                 foreach (Models.Score s in scores)
                 {

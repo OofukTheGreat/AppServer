@@ -14,6 +14,10 @@ namespace AppServer.Models
         {
             return this.Scores.Where(s => s.HasWon == true && s.LevelId == levelid).ToList();
         }
+        public List<Score>? GetScoresByPlayer(int playerid)
+        {
+            return this.Scores.Where(p => p.PlayerId == playerid).ToList();
+        }
         public List<Player>? GetPlayers()
         {
             return this.Players.ToList();
