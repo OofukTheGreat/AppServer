@@ -281,7 +281,24 @@ namespace AppServer.Controllers
             {
                 return BadRequest(ex.Message);
             }
-
+        }
+        [HttpGet("getPlayerWinningScores")]
+        public IActionResult GetPlayerWinningScores([FromQuery] int playerid)
+        {
+            try
+            { 
+                List<Models.Score> scores = context.GetPlayerWinningScores(playerid).ToList();
+                List<DTO.ScoreDTO> Scores = new List<ScoreDTO>();
+                foreach (Models.Score s in scores)
+                {
+                    Scores.Add(new DTO.ScoreDTO(s));
+                }
+                return Ok(Scores);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpGet("getPlayers")]
         public IActionResult GetPlayers()
@@ -367,7 +384,6 @@ namespace AppServer.Controllers
             {
                 return BadRequest(ex.Message);
             }
-
         }
     }
 

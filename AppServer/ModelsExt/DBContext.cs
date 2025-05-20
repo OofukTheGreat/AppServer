@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using AppServer.DTO;
 using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 namespace AppServer.Models
@@ -16,7 +17,26 @@ namespace AppServer.Models
         }
         public List<Score>? GetScoresByPlayer(int playerid)
         {
-            return this.Scores.Where(p => p.PlayerId == playerid).ToList();
+            return this.Scores.Where(s => s.PlayerId == playerid).ToList();
+        }
+        public List<Score>? GetWonScoresByLevel(int levelid)
+        {
+            return this.Scores.Where(s => s.LevelId == levelid && s.HasWon == true).ToList();
+        }
+        public Score HighestScoreByLevel(int levelid)
+        {
+            List<Score> tempscores = GetWonScoresByLevel(levelid);
+            tempscores.OrderBy(s => s.Time);
+            return tempscores.FirstOrDefault();
+        }
+        public List<Score>? GetPlayerWinningScores(int playerid)
+        {
+            List<Score> tempscores = new List<Score>();
+            foreach (Level l in Levels)
+            {
+                tempscores.Add(HighestScoreByLevel(l.LevelId));
+            }
+            return tempscores.Where(s => s.PlayerId == playerid).ToList();
         }
         public List<Player>? GetPlayers()
         {
