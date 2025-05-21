@@ -358,7 +358,25 @@ namespace AppServer.Controllers
             {
                 return BadRequest(ex.Message);
             }
-
+        }
+        [HttpGet("getPendingLevelMakers")]
+        public IActionResult GetPendingLevelMakers()
+        {
+            try
+            {
+                List<Models.Player> modelPlayers = context.GetPendingLevelMakers();
+                List<DTO.PlayerDTO> playersDto = new List<PlayerDTO>();
+                foreach (Models.Player p in modelPlayers)
+                {
+                    //p.ProfilePicture = GetProfileImageVirtualPath(p.PlayerId);
+                    playersDto.Add(new DTO.PlayerDTO(p));
+                }
+                return Ok(playersDto);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         [HttpPost("addLevel")]
         public IActionResult AddLevel([FromBody] DTO.LevelDTO levelDto)

@@ -19,24 +19,28 @@ namespace AppServer.Models
         {
             return this.Scores.Where(s => s.PlayerId == playerid).ToList();
         }
-        public List<Score>? GetWonScoresByLevel(int levelid)
-        {
-            return this.Scores.Where(s => s.LevelId == levelid && s.HasWon == true).ToList();
-        }
-        public Score HighestScoreByLevel(int levelid)
-        {
-            List<Score> tempscores = GetWonScoresByLevel(levelid);
-            tempscores.OrderBy(s => s.Time);
-            return tempscores.FirstOrDefault();
-        }
         public List<Score>? GetPlayerWinningScores(int playerid)
         {
             List<Score> tempscores = new List<Score>();
-            foreach (Level l in Levels)
+            List<Level> templevels = new List<Level>(Levels);
+            foreach (Level l in templevels)
             {
-                tempscores.Add(HighestScoreByLevel(l.LevelId));
+                List<Score> unsorted = this.Scores.Where(s => s.LevelId == l.LevelId && s.HasWon == true).ToList();
+                unsorted.OrderBy(s => s.Time);
+                tempscores.Add(unsorted.First());
             }
             return tempscores.Where(s => s.PlayerId == playerid).ToList();
+        }
+        public List<Player>? GetPendingLevelMakers()
+        {
+            List<Level> pendinglevels = this.Levels.Where(l => l.StatusId == 1).ToList();
+            List<Player> tempplayers = new List<Player>(Players);
+            List<Player> makers = new List<Player>();
+            foreach (Player p in tempplayers)
+            {
+                if (pendinglevels.Where(l => l.CreatorId == p.PlayerId).FirstOrDefault() != null) makers.Add(p);
+            }
+            return makers;
         }
         public List<Player>? GetPlayers()
         {
