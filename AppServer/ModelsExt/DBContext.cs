@@ -27,7 +27,7 @@ namespace AppServer.Models
             {
                 List<Score> unsorted = this.Scores.Where(s => s.LevelId == l.LevelId && s.HasWon == true).ToList();
                 unsorted.OrderBy(s => s.Time);
-                tempscores.Add(unsorted.First());
+                if (unsorted.FirstOrDefault() != null) tempscores.Add(unsorted.FirstOrDefault());
             }
             return tempscores.Where(s => s.PlayerId == playerid).ToList();
         }

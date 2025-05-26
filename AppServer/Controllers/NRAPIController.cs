@@ -403,6 +403,34 @@ namespace AppServer.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        [HttpPost("approve")]
+        public IActionResult Approve([FromBody] int levelid)
+        {
+            try
+            {
+                context.Levels.Where(l => l.LevelId == levelid).FirstOrDefault().StatusId = 2;
+                context.SaveChanges();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [HttpPost("decline")]
+        public IActionResult Decline([FromBody] int levelid)
+        {
+            try
+            {
+                context.Levels.Where(l => l.LevelId == levelid).FirstOrDefault().StatusId = 3;
+                context.SaveChanges();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 
 }
